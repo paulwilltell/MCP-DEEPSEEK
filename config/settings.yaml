@@ -1,0 +1,16 @@
+# Default configuration for the MCP host runtime.
+context:
+  project: "deepseek-collaboration"
+
+connectors:
+  - name: deepseek
+    module: connectors.deepseek
+    class: DeepSeekConnector
+    api_key_env: DEEPSEEK_API_KEY
+    base_url: https://api.deepseek.com/v1
+    model: deepseek-chat
+    routes:
+      - generate_backend
+      - generate_frontend
+      - draft_content
+    timeout: 30
