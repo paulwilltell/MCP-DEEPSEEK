@@ -1,0 +1,11 @@
+connectors:
+  deepseek:
+    class: connectors.deepseek.DeepSeekConnector
+    credentials:
+      api_key_env: DEEPSEEK_API_KEY
+    model: deepseek-chat
+routing:
+  default: deepseek
+  rules:
+    - match: "generate"
+      connector: deepseek
