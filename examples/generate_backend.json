@@ -1,0 +1,10 @@
+{
+  "task": "generate_backend",
+  "language": "python",
+  "framework": "fastapi",
+  "requirements": [
+    "CRUD for tasks",
+    "SQLite persistence",
+    "JWT authentication"
+  ]
+}
