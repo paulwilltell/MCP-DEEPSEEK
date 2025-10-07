@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.venv/
+.env
+.env.*
+!.env.example
+
+# Tooling
+logs/
+models/
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Runtime artifacts
+*.log
+*.key
+*.pem
+
+# Conda
+*.conda
+*.lock
