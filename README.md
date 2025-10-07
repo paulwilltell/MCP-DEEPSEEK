@@ -36,6 +36,43 @@ personal-local-ai/
 └─ models/ (ignored)
 ```
 
+## Quick Start
+
+### Windows 11 (PowerShell) using `python -m venv`
+1. Install [Python 3.11](https://www.python.org/downloads/windows/) and ensure "Add python.exe to PATH" is checked.
+2. Clone the repository and create an isolated virtual environment:
+   ```powershell
+   git clone https://github.com/paulwilltell/personal-local-ai.git
+   cd personal-local-ai
+   python -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+   ```
+3. Install dependencies (dry run optional):
+   ```powershell
+   # Optional preview
+   bash scripts/install_pip_deps.sh --mode=DRY_RUN --python .\.venv\Scripts\python.exe
+   # Execute installation inside the venv
+   bash scripts/install_pip_deps.sh --mode=EXECUTE --python .\.venv\Scripts\python.exe
+   ```
+4. Place a quantized `.gguf` model under `models\` (or another folder) and set an absolute `MODEL_PATH`.
+   ```powershell
+   copy D:\ai-models\mistral.gguf models\
+   $Env:MODEL_PATH = (Resolve-Path models\mistral.gguf)
+   ```
+5. Run a single prompt or launch the server:
+   ```powershell
+   .\.venv\Scripts\python.exe src\main.py --model-path $Env:MODEL_PATH --json
+   bash scripts\run_server.sh --mode=EXECUTE --model-path $Env:MODEL_PATH
+   ```
+
+### WSL2 / Ubuntu 22.04 (Conda-first)
+1. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or [Mambaforge](https://github.com/conda-forge/miniforge/releases).
+2. Clone the repository:
+   ```bash
+   git clone https://github.com/paulwilltell/personal-local-ai.git
+   cd personal-local-ai
+   ```
+
 ## Conda-First Installation
 1. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or [Mambaforge](https://github.com/conda-forge/miniforge/releases) inside WSL2.
 2. Clone the repository:
@@ -51,8 +88,8 @@ personal-local-ai/
    ```
 4. (Optional) If conda is unavailable, fall back to pip:
    ```bash
-   bash scripts/install_pip_deps.sh --mode=DRY_RUN
-   bash scripts/install_pip_deps.sh --mode=EXECUTE
+   bash scripts/install_pip_deps.sh --mode=DRY_RUN --python python3
+   bash scripts/install_pip_deps.sh --mode=EXECUTE --python python3
    ```
 
 ## Building `llama-cpp-python`
@@ -81,6 +118,7 @@ bash scripts/build_llama_cpp_python.sh --mode=EXECUTE --force-rebuild
   bash scripts/download_model.sh --mode=EXECUTE --model-url <DIRECT_URL>
   ```
 - Models are saved under `./models` (git-ignored). Ensure the target filesystem has >20 GB free.
+- After the download, point `MODEL_PATH` to the absolute location of the `.gguf` file (e.g., `/mnt/d/ai-models/model.gguf`).
 
 ## Smoke Test & Validation
 After installing dependencies and downloading a model:

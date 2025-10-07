@@ -49,7 +49,9 @@ class Settings:
             )
         model_path = Path(model_env).expanduser().resolve()
         if not model_path.exists():
-            raise FileNotFoundError(f"Model file not found at {model_path}")
+            raise FileNotFoundError(
+                f"Model file not found at {model_path}. Use an absolute path and ensure the GGUF file exists."
+            )
         max_tokens = int(os.getenv("MAX_NEW_TOKENS", "128"))
         temperature = float(os.getenv("MODEL_TEMPERATURE", "0.2"))
         return cls(model_path=model_path, max_tokens=max_tokens, temperature=temperature)
@@ -145,7 +147,9 @@ def main(argv: Optional[list[str]] = None) -> int:
     if args.model_path is not None:
         model_path = args.model_path.expanduser().resolve()
         if not model_path.exists():
-            raise FileNotFoundError(f"Model not found at {model_path}")
+            raise FileNotFoundError(
+                f"Model not found at {model_path}. Confirm the GGUF file exists and pass an absolute path."
+            )
         settings = Settings(model_path=model_path, max_tokens=args.max_tokens, temperature=args.temperature)
     else:
         settings = Settings.from_env()

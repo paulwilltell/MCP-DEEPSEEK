@@ -74,7 +74,7 @@ if model_path is None:
         66,
         "No GGUF model found",
         errors=[
-            "Place a quantized GGUF model under ./models or set MODEL_PATH",
+            "Place a quantized GGUF model under ./models or set MODEL_PATH (use an absolute path)",
             "Use scripts/download_model.sh with HF_TOKEN or MODEL_URL",
         ],
     )

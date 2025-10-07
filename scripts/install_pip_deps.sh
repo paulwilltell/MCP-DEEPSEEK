@@ -92,6 +92,17 @@ fi
 
 echo "Using python executable: $PYTHON_BIN"
 
+IN_VENV=$("$PYTHON_BIN" - <<'PY'
+import sys
+print(int(sys.prefix != getattr(sys, "base_prefix", sys.prefix)))
+PY
+)
+
+if [[ "$IN_VENV" != "1" ]]; then
+  echo "[WARN] The selected Python interpreter is not in a virtual environment."
+  echo "       Run 'python -m venv .venv' and rerun with --python ./.venv/bin/python (or Windows equivalent)."
+fi
+
 if [[ $MODE == "EXECUTE" ]]; then
   run_cmd "$PYTHON_BIN" -m pip install --upgrade pip
   run_cmd "$PYTHON_BIN" -m pip install --upgrade setuptools wheel
