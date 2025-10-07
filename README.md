@@ -129,6 +129,17 @@ python tests/verify_installation.py
 - `smoke_test.sh` reports latency and sample text as JSON.
 - `tests/verify_installation.py` prints JSON with success flag and details. It exits with status 66 if no model is available.
 
+### Missing Model or MODEL_PATH Errors
+If the CLI or server complains that `MODEL_PATH` is missing or the file does not exist:
+1. Ensure dependencies are installed (activate your environment and rerun `bash scripts/install_conda_deps.sh --mode=EXECUTE` or `bash scripts/install_pip_deps.sh --mode=EXECUTE`).
+2. Download or copy a quantized `.gguf` model into `models/` (or another folder) and capture the **absolute** path to the file.
+3. Set `MODEL_PATH` to that absolute path (e.g., PowerShell: `$Env:MODEL_PATH = (Resolve-Path models\mistral.gguf)` or Bash: `export MODEL_PATH="/mnt/d/ai-models/mistral.gguf"`).
+4. Re-run the command, explicitly passing `--model-path` if desired, for example:
+   - PowerShell: `.\.venv\Scripts\python.exe src\main.py --model-path C:\\path\\to\\model.gguf`
+   - Bash: `bash scripts/run_server.sh --mode=EXECUTE --model-path /mnt/d/ai-models/model.gguf`
+
+Both `src/main.py` and `scripts/run_server.sh` validate that the path exists before starting, so the command will continue once the file is in place.
+
 ## Running the Local API Server
 ```bash
 bash scripts/run_server.sh --mode=EXECUTE --model-path ./models/<model>.gguf
