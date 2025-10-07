@@ -1,0 +1,21 @@
+{
+  "name": "personal-local-ai",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/conda:1": {
+      "installPackages": false
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "remoteUser": "vscode",
+  "runArgs": ["--shm-size=2g"],
+  "mounts": [
+    "source=${localEnv:HOME}/.cache,target=/home/vscode/.cache,type=bind,consistency=cached"
+  ]
+}
