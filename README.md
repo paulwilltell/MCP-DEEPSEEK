@@ -45,22 +45,16 @@ The architecture follows a hub-and-spoke pattern: ChatGPT communicates only with
 3. For local development, export these variables in your shell or use a tool like `direnv` or `dotenv` to load them automatically.
 4. Ensure your OpenAI account is configured to access the GPT model you intend to use (e.g., `gpt-4.1` or newer) and that your DeepSeek account has sufficient quota.
 
-### 3. Install Dependencies
-```bash
-git clone https://github.com/your-org/MCP-DEEPSEEK.git
-cd MCP-DEEPSEEK
-npm install   # or pip install -r requirements.txt if using Python host
-```
+### 3. Bring Your Own MCP Host Implementation
+This repository currently ships documentation only. To experiment with the described workflow you will need to supply your own
+MCP host and DeepSeek connector implementation. You can:
 
-### 4. Run the MCP Host Entry Point
-```bash
-npm run start   # starts the MCP host and exposes DeepSeek tools
-```
-If you are using the Python implementation, run:
-```bash
-python -m mcp_deepseek.host
-```
-The host listens on `http://localhost:$MCP_HOST_PORT` and registers DeepSeek tools when ChatGPT connects via the MCP client.
+- Scaffold a new project (e.g., `npm create`, `pip install mcp`),
+- Implement the host responsibilities outlined above, and
+- Register a DeepSeek-backed tool that follows the MCP specification.
+
+Once you have a working host, point your MCP-enabled client (such as ChatGPT) at that server and reuse the configuration
+guidance from steps 1 and 2.
 
 ## End-to-End Example: Building a Task-Tracking App
 1. **User Conversation:** The user asks ChatGPT to "Create a full-stack task-tracking app with backend CRUD endpoints and a React frontend."
